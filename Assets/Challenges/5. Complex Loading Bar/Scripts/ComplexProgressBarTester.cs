@@ -39,7 +39,8 @@ namespace Challenges._5._Complex_Loading_Bar.Scripts
                 thresholds.Add(last+val);
             }
 
-            _currentMinimum = thresholds[0];
+            _currentMinimum = thresholds[0];                                 // this doesnt get called so if we dont click randomize before set target it will always give zero
+                                                                             // not sure if it was intended but I wont touch it
             _currentMaximum = thresholds[thresholds.Count - 1];
             progressBar.SetThresholds(thresholds.ToArray());
 

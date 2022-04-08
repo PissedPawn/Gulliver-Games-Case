@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: ClusterBomb_1
   m_EditorClassIdentifier: 
   selfDamage: 20
-  selfExplosionRadius: 3
-  childCount: 5
-  childInitialJumpHeight: 1.6
-  childTravelDistance: 5
+  selfExplosionRadius: 25.65
+  childCount: 9
+  childInitialJumpHeight: 14
+  childTravelDistance: 109.22
   childBounceCount: 3
-  childDamage: 10
-  childExplosionRadius: 1.2
+  childBounceFalloff: 0
+  childDamage: 8
+  childExplosionRadius: 7.72

@@ -23,6 +23,8 @@ namespace Challenges._1._Basic_Progress_Bar.Scripts
         float textMoveDelta; // interval of text obj movement
         float currentValue;
         bool increase; // check if increasing or decreasing
+
+        float globalValue;
         private void Awake()
         {
             barWidth = transform.GetComponent<RectTransform>().rect.width;
@@ -74,9 +76,15 @@ namespace Challenges._1._Basic_Progress_Bar.Scripts
         public void ForceValue(float value)
         {
 
-            currentValue = value;
+
+            if (value > 1)
+                currentValue = value % Mathf.FloorToInt(value);
+            else
+            {
+                currentValue = value;
+            }
             fillBar.localScale = new Vector3(currentValue, fillBar.localScale.y, fillBar.localScale.z);
-            percentageText.text = Mathf.RoundToInt(currentValue * 100).ToString() + "%";
+            UpdateTextPosition();
 
         }
 
@@ -91,6 +99,11 @@ namespace Challenges._1._Basic_Progress_Bar.Scripts
 
 
 
+
+            Debug.Log(currentValue);
+            Debug.Log(value);
+
+
             increase = value > currentValue;
             int negate;
 
@@ -100,8 +113,10 @@ namespace Challenges._1._Basic_Progress_Bar.Scripts
             else
                 negate = -1;
 
+            globalValue = value;               //  keeping value as global so that we can manipulate its value, but I actually dont like this,
+                                               //  there might be a better solution, this is kinda messy
 
-            StartCoroutine(UpdateProgress(value, negate));
+            StartCoroutine(UpdateProgress(negate));
         }
 
 
@@ -114,6 +129,8 @@ namespace Challenges._1._Basic_Progress_Bar.Scripts
                 case TextPosition.BarCenter:
                     percentageText.transform.localPosition = Vector3.zero;
                     percentageText.text = Mathf.RoundToInt(currentValue * 100).ToString() + "%";
+
+                    // Debug.Log(Mathf.RoundToInt(currentValue * 100) + "Text Value");
                     break;
                 case TextPosition.Progress:
                     percentageText.transform.localPosition = new Vector3(currentValue * textMoveDelta - textMoveDelta / 2,
@@ -134,23 +151,83 @@ namespace Challenges._1._Basic_Progress_Bar.Scripts
 
         void UpdateBarValue(float value, int negate)
         {
+
             switch (snapOptions)
             {
                 case ProgressSnapOptions.SnapToLowerValue:
-                    if (negate < 0)// if decreasing
-                        currentValue = value;
+
+
+                    if (value > 1)
+                    {
+                        if (negate < 0)// if decreasing
+                            currentValue = value % Mathf.FloorToInt(value);
+                        else
+                        {
+                            currentValue += baseSpeed * negate * Time.deltaTime;
+                            if (value > 1 && currentValue >= 1f)
+                            {
+                                currentValue -= 1;
+                                globalValue -= 1;
+
+
+                            }
+                        }
+                    }
                     else
-                        currentValue += baseSpeed * negate * Time.deltaTime;
+                    {
+                        if (negate < 0)// if decreasing
+                            currentValue = value;
+                        else
+                        {
+                            currentValue += baseSpeed * negate * Time.deltaTime;
+                        }
+                    }
+
                     break;
                 case ProgressSnapOptions.SnapToHigherValue:
-                    if (negate > 0)// if increasing
-                        currentValue = value;
+
+
+                    if (value > 1)
+                    {
+                        if (negate > 0)// if increasing
+                            currentValue = value % Mathf.FloorToInt(value);
+                        else
+                        {
+                            currentValue += baseSpeed * negate * Time.deltaTime;
+                            if (value > 1 && currentValue >= 1f)
+                            {
+                                currentValue -= 1;
+                                globalValue -= 1;
+
+
+                            }
+                        }
+
+                    }
 
                     else
-                        currentValue += baseSpeed * negate * Time.deltaTime;
+                    {
+                        if (negate > 0)// if increasing
+                            currentValue = value;
+
+                        else
+                            currentValue += baseSpeed * negate * Time.deltaTime;
+                    }
                     break;
+
                 case ProgressSnapOptions.DontSnap:
+
                     currentValue += baseSpeed * negate * Time.deltaTime;
+
+                    if (value > 1 && currentValue >= 1f)
+                    {
+                        currentValue -= 1;
+                        globalValue -= 1;
+
+
+                    }
+
+                    //  Debug.Log(currentValue);
                     break;
                 default:
                     break;
@@ -158,13 +235,14 @@ namespace Challenges._1._Basic_Progress_Bar.Scripts
         }
 
 
-        IEnumerator UpdateProgress(float value, int negate)
+        IEnumerator UpdateProgress(int negate)
         {
 
 
-            while (value * negate - currentValue * negate > 0)
+            while (globalValue * negate - currentValue * negate > 0)
             {
-                UpdateBarValue(value, negate);
+
+                UpdateBarValue(globalValue, negate);
 
                 UpdateTextPosition();
 
@@ -172,10 +250,6 @@ namespace Challenges._1._Basic_Progress_Bar.Scripts
                 yield return null;
 
             }
-
-
-
-
 
         }
 

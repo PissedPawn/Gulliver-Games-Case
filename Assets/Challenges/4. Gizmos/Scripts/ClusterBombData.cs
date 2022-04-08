@@ -2,7 +2,7 @@
 
 namespace Challenges._4._Gizmos.Scripts
 {
-    [CreateAssetMenu(fileName = "ClusterBombData",menuName = "GizmoChallenge/ClusterBombData")]
+    [CreateAssetMenu(fileName = "ClusterBombData", menuName = "GizmoChallenge/ClusterBombData")]
     public class ClusterBombData : ScriptableObject
     {
         [Header("Self")]
@@ -18,22 +18,23 @@ namespace Challenges._4._Gizmos.Scripts
         [SerializeField]
         private float childTravelDistance;
         [SerializeField]
-        private float childBounceCount;
+        private int childBounceCount; // should be int thats why Im changing it
         [SerializeField]
-        private int childBounceFalloff;
-        
-        
+        private float childBounceFalloff; // should be float
+
+
         [SerializeField]
         private int childDamage;
         [SerializeField]
         private float childExplosionRadius;
 
         public float ChildExplosionRadius => childExplosionRadius;
-        public int ChildBounceFalloff => childBounceFalloff;
-
+        public float ChildBounceFalloff => childBounceFalloff;
+     
         public int ChildDamage => childDamage;
+    
 
-        public float ChildBounceCount => childBounceCount;
+        public int ChildBounceCount => childBounceCount;
 
         public float ChildTravelDistance => childTravelDistance;
 

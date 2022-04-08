@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClusterBombBase_1
       objectReference: {fileID: 0}
+    - target: {fileID: 411660354569713072, guid: 54562e3ca5fa7489ebe317a108dea590, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 411660354569713073, guid: 54562e3ca5fa7489ebe317a108dea590, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -25,7 +29,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 411660354569713073, guid: 54562e3ca5fa7489ebe317a108dea590, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 411660354569713073, guid: 54562e3ca5fa7489ebe317a108dea590, type: 3}
       propertyPath: m_LocalRotation.w
@@ -54,6 +58,10 @@ PrefabInstance:
     - target: {fileID: 411660354569713073, guid: 54562e3ca5fa7489ebe317a108dea590, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 411660354569713074, guid: 54562e3ca5fa7489ebe317a108dea590, type: 3}
+      propertyPath: segments
+      value: 242
       objectReference: {fileID: 0}
     - target: {fileID: 411660354569713074, guid: 54562e3ca5fa7489ebe317a108dea590, type: 3}
       propertyPath: clusterBombData

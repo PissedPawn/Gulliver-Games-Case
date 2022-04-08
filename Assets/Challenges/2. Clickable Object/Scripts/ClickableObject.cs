@@ -7,24 +7,40 @@ namespace Challenges._2._Clickable_Object.Scripts
     {
         private const string MessageWithMethodArgument =
             "Attempted to register to an invalid method of clickable interaction. The ClickableObject '{0}' does not allow interaction of type {1}";
-        public InvalidInteractionMethodException(string gameObjectName, ClickableObject.InteractionMethod interactionMethod) : base(string.Format(MessageWithMethodArgument,gameObjectName,interactionMethod))
+        public InvalidInteractionMethodException(string gameObjectName, ClickableObject.InteractionMethod interactionMethod) : base(string.Format(MessageWithMethodArgument, gameObjectName, interactionMethod))
         {
         }
     }
     [RequireComponent(typeof(Collider))]
     public class ClickableObject : MonoBehaviour, IClickableObject
     {
-      
+
         // Do not remove the provided 3 options, you can add more if you like
         [Flags]
         public enum InteractionMethod
         {
-            Tap=2,
-            DoubleTap=4,
-            TapAndHold=8
+            Tap = 2,
+            DoubleTap = 4,
+            TapAndHold = 8
         }
-        
-        
+
+        private void Update()
+        {
+
+            if (!Input.GetMouseButtonDown(0))
+                return;
+
+
+            RaycastHit hit;
+
+            Ray r = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+
+            if (Physics.Raycast(r, out hit, 100f))
+            {
+                Debug.Log(hit.transform.gameObject);
+            }
+        }
         /// <summary>
         /// Dont edit
         /// </summary>
@@ -49,10 +65,10 @@ namespace Challenges._2._Clickable_Object.Scripts
         /// </summary>
         public void SetInteractionMethod(InteractionMethod method)
         {
-            
+            Debug.Log(allowedInteractionMethods);
         }
-        
-        
+
+
         /// <summary>
         /// Will invoke the given callback when the clickable object is interacted with alongside the method of interaction
         /// </summary>
@@ -74,18 +90,18 @@ namespace Challenges._2._Clickable_Object.Scripts
         /// </summary>
         /// <param name="onTapCallback"></param>
         /// <exception cref="InvalidInteractionMethodException">If tapping is not allowed for this clickable</exception>
-        public void RegisterToClickableTap(OnClickableClickedUnspecified onTapCallback) 
+        public void RegisterToClickableTap(OnClickableClickedUnspecified onTapCallback)
         {
         }
-        
+
         /// <summary>
         /// Will invoke the given callback when the clickable object is tapped. 
         /// </summary>
         /// <param name="onTapCallback"></param>
         /// <exception cref="InvalidInteractionMethodException">If double tapping is not allowed for this clickable</exception>
-        public void RegisterToClickableDoubleTap(OnClickableClickedUnspecified onTapCallback) 
+        public void RegisterToClickableDoubleTap(OnClickableClickedUnspecified onTapCallback)
         {
         }
-        
+
     }
 }

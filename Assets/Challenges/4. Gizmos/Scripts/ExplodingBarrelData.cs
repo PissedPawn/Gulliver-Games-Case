@@ -8,7 +8,7 @@ namespace Challenges._4._Gizmos.Scripts
         Earth,
         Fire,
         Air,
-        LongAgoTheFourNationsLivedTogetherInHarmony
+        LongAgoTheFourNationsLivedTogetherInHarmony // lol good one
     }
     [CreateAssetMenu(fileName = "ExplodingBarrelData",menuName = "GizmoChallenge/ExplodingBarrelData")]
     public class ExplodingBarrelData : ScriptableObject

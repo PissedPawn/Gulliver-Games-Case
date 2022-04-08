@@ -56,6 +56,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 411660354569713074, guid: 54562e3ca5fa7489ebe317a108dea590, type: 3}
+      propertyPath: segments
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 411660354569713074, guid: 54562e3ca5fa7489ebe317a108dea590, type: 3}
       propertyPath: clusterBombData
       value: 
       objectReference: {fileID: 11400000, guid: 3565c85b286da49fd8d6a61652eb4972, type: 2}
